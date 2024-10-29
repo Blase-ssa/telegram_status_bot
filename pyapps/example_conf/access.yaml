@@ -1,0 +1,35 @@
+---
+- id: 12345678
+  name: "Ivan"
+  username: "@Ivanon_Ivan"
+  rights:
+    status: true
+    fullstatus: true
+    search: true
+    chat: true
+    help: true
+  help: "Вам доступны следующие функции бота:\n
+    /help - для вывода данного сообщения;\n
+    /status - для быстрой проверки статуса серверов;\n
+    /fullstatus - для вывода полной информации;\n
+    /search - для поиска человека по номеру телефона;\n
+    chat - люьое сообщение не являющееся командой будет перенаправлено чатботу.\n
+    "
+
+- id: 87654321
+  name: "Pain"
+  username: "@Peter_Tagtgren"
+  rights:
+    status: true
+    fullstatus: true
+    search: true
+    chat: true
+    help: true
+  help: "The following bot functions are available to you:\n
+    /help - to display this message;\n
+    /status - to quickly check the status of servers;\n
+    /fullstatus - to display full information;\n
+    /search - to search for a person by phone number;\n
+    chat - any message that is not a command will be redirected to the chatbot.\n
+    "
+...

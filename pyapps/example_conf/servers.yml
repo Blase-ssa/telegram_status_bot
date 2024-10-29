@@ -1,0 +1,47 @@
+---
+## bot configuration secrion
+# - BOTTOKEN: "test"
+- REGISTRATION: true
+
+## list if frontends to track
+- frontends:
+  - name: "vps1.example.com"
+    shortname: "vps1"
+    availability: false
+    statusport: 22
+    description: "Temporary turned off"
+  - name: "vps2.example.com"
+    shortname: "vps2"
+    availability: true
+    statusport: 22
+    description: "Nginx + bots"
+
+## backend configuration
+- backends:
+  - db:
+    - name: "db_search_people"
+      type: "mysql"
+      port: "4463"
+      host: "127.0.0.1"
+
+- containers:
+  server: 
+  - name: "vps2.example.com"
+    exporter:
+      port: "9101"
+      path: "/metrics"
+      msgtype: "json"
+    services:
+    - "wireguard"
+    - "mysql_db"
+    - "nginx"
+  - name: "vps1.example.com"
+    exporter:
+      port: "9101"
+      path: "/metrics"
+      msgtype: "json"
+    services:
+    - "wireguard"
+    - "mysql_db"
+    - "nginx"
+...
