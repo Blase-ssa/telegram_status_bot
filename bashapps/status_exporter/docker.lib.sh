@@ -18,5 +18,5 @@ docker_get_containers(){
 
 docker_get_resource_usage(){
     ### get container(s) resource usage statistics in json format
-    docker stats -a --format json --no-stream
+    docker stats --format json --no-stream
 }

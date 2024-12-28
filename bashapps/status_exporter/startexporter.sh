@@ -17,8 +17,10 @@ source $(dirname "$0")/websrv.lib.sh    # Lib of functions to run netcat web ser
 ## Preliminary check of launch conditions.
 ## check PID file existence
 if [ -f ${PID_FILE_DIR}/${APP_NAME}.pid ]; then
-    echo "$APP_NAME ERROR: PID file (${PID_FILE_DIR}/${APP_NAME}.pid) already exists. Therefore, the process is already running or was not terminated correctly." >&2
-    exit 1
+    if [[ $(cat ${PID_FILE_DIR}/${APP_NAME}.pid) != $$ ]]; then
+        echo "$APP_NAME ERROR: PID file (${PID_FILE_DIR}/${APP_NAME}.pid) already exists. Therefore, the process is already running or was not terminated correctly." >&2
+        exit 1
+    fi
 else
     ## check if port is busy
     if nc -vz $SRV_ADDR $SRV_PORT > /dev/null 2>&1; then
@@ -46,4 +48,11 @@ exporter_data(){
     echo "$data"
 }
 
+# check if server run as a service to prevent unnecessary output
+if [[ $1 == "service" ]]; then
+    SERVICESTATUS=0
+else
+    SERVICESTATUS=1
+fi
+# run server
 websrv_run

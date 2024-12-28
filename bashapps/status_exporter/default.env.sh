@@ -23,4 +23,4 @@ APP_NAME="statusexporter"
 ## or if you wat to use current directory
 # PID_FILE_DIR="."
 ## this option is recommended for running as a service
-PID_FILE_DIR="/var/run"
+PID_FILE_DIR="/var/run/status_exporter/"

@@ -27,8 +27,8 @@ I didn't want to write this code in Python, because Python consumes a lot of res
     ```
 * give permissions to the user to have access to app dir
     ```bash
-        chown -R sexport /opt/status_exporter
-        chmod -R u+rx /opt/status_exporter
+    chown -R sexport /opt/status_exporter
+    chmod -R u+rx /opt/status_exporter
     ```
 * set up autostart 
     * copy or move `statusexporter.service` to `/etc/systemd/system/`

@@ -1,16 +1,20 @@
 [Unit]
-Description=Status Exporter: The application allows you to check the server load level, as well as collect a specific list of metrics for the docker. All data is provided in JSON format.
+Description=Status Exporter Service
 Documentation=https://github.com/Blase-ssa/telegram_status_bot/blob/main/bashapps/status_exporter/Readme.md
-After=network.target auditd.service
+After=network.target
 
 [Service]
 User=sexport
-ExecStart=/opt/status_exporter/startexporter.sh
-ExecStop==/opt/status_exporter/stopexporter.sh
-PIDFile=/var/run/statusexporter.pid
-KillMode=process
+ExecStart=/opt/status_exporter/startexporter.sh service
+ExecStopPost=/opt/status_exporter/cleanup.sh
+PIDFile=/var/run/status_exporter/statusexporter.pid
+RuntimeDirectory=status_exporter
+RuntimeDirectoryMode=0755
+KillMode=control-group
 Restart=always
-Type=notify
+Type=simple
+MemoryHigh=42M
+MemoryLimit=60M
 
 [Install]
 WantedBy=multi-user.target

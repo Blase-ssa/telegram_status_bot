@@ -14,9 +14,13 @@ fi
 if [ -f ${PID_FILE_DIR}/${APP_NAME}.pid ]; then
     ## get PID from file --> kill PID --> remove PID file --> send request to server to stop current iteration
     pid=$(cat ${PID_FILE_DIR}/${APP_NAME}.pid)
+
+    echo "Stopping ${APP_NAME} service"
+
     kill $pid
+    sleep 0.5s
     rm ${PID_FILE_DIR}/${APP_NAME}.pid
-    nc -vz $SRV_ADDR $SRV_PORT
+    nc -vz $SRV_ADDR $SRV_PORT > /dev/null 2>&1
 else
     echo "PID-file not found"
 fi
