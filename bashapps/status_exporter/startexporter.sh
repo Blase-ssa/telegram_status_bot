@@ -16,8 +16,8 @@ source $(dirname "$0")/websrv.lib.sh    # Lib of functions to run netcat web ser
 
 ## Preliminary check of launch conditions.
 ## check PID file existence
-if [ -f /var/run/${APP_NAME}.pid ]; then
-    echo "$APP_NAME ERROR: PID file (/var/run/${APP_NAME}.pid) already exists. Therefore, the process is already running or was not terminated correctly." >&2
+if [ -f ${PID_FILE_DIR}/${APP_NAME}.pid ]; then
+    echo "$APP_NAME ERROR: PID file (${PID_FILE_DIR}/${APP_NAME}.pid) already exists. Therefore, the process is already running or was not terminated correctly." >&2
     exit 1
 else
     ## check if port is busy
@@ -26,7 +26,7 @@ else
         exit 1
     fi
     ## save pid to file
-    echo $$ > /var/run/${APP_NAME}.pid
+    echo $$ > ${PID_FILE_DIR}/${APP_NAME}.pid || exit 1
 fi
 
 exporter_data(){

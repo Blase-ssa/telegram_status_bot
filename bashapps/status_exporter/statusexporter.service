@@ -4,10 +4,13 @@ Documentation=https://github.com/Blase-ssa/telegram_status_bot/blob/main/bashapp
 After=network.target auditd.service
 
 [Service]
+User=sexport
 ExecStart=/opt/status_exporter/startexporter.sh
 ExecStop==/opt/status_exporter/stopexporter.sh
+PIDFile=/var/run/statusexporter.pid
 KillMode=process
-Restart=on-failure
-Type=forking #notify
-RuntimeDirectoryMode=0755
+Restart=always
+Type=notify
 
+[Install]
+WantedBy=multi-user.target

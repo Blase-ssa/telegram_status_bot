@@ -16,3 +16,11 @@ BASE_64=0
 ## If for some reason you need to run more than 1 instance of the program,
 ## just change the name here.
 APP_NAME="statusexporter"
+
+## Change this path if you don't want to install the application as a service.
+## Example:
+# PID_FILE_DIR="/opt/status_exporter"
+## or if you wat to use current directory
+# PID_FILE_DIR="."
+## this option is recommended for running as a service
+PID_FILE_DIR="/var/run"
