@@ -2,7 +2,7 @@
 # run this script to stop netcat server
 
 # 
-if [ $SRV_PORT -le 0 ]; then
+if [[ $SRV_PORT -le 0 ]]; then
     if [ -f .env.sh ]; then
         source $(dirname "$0")/.env.sh
     else
@@ -11,11 +11,11 @@ if [ $SRV_PORT -le 0 ]; then
 fi
 
 ## check PID file existence
-if [ -f /var/run/${APP_NAME}.pid ]; then
+if [ -f ${PID_FILE_DIR}/${APP_NAME}.pid ]; then
     ## get PID from file --> kill PID --> remove PID file --> send request to server to stop current iteration
-    pid=$(cat /var/run/${APP_NAME}.pid)
+    pid=$(cat ${PID_FILE_DIR}/${APP_NAME}.pid)
     kill $pid
-    rm /var/run/${APP_NAME}.pid
+    rm ${PID_FILE_DIR}/${APP_NAME}.pid
     nc -vz $SRV_ADDR $SRV_PORT
 else
     echo "PID-file not found"
