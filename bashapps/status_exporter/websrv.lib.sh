@@ -38,7 +38,11 @@ web_check_requirement(){
 
 websrv_iteration(){
     ## function open web socket and wait for request
-    echo -e "${SRV_HEADER}\n\n${EXPORTER_DATA}\n" | nc -l -s $SRV_ADDR -p $SRV_PORT -q 1 -v
+    if [[ $SERVICESTATUS == 0 ]]; then
+        echo -e "${SRV_HEADER}\n\n${EXPORTER_DATA}\n" | nc -l -s $SRV_ADDR -p $SRV_PORT -q 1 > /dev/null 2>&1
+    else
+        echo -e "${SRV_HEADER}\n\n${EXPORTER_DATA}\n" | nc -l -s $SRV_ADDR -p $SRV_PORT -q 1 -v
+    fi
 }
 
 websrv_run(){
