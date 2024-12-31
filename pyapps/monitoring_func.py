@@ -3,7 +3,8 @@ from core_functions import *
 import socket
 import subprocess
 import json
-
+import emoji
+import requests
 
 def get_servers_status_4bot(server_list: dict) -> str:
     """
@@ -22,7 +23,7 @@ def get_servers_status_4bot(server_list: dict) -> str:
         if "availability" in srv and srv["availability"] == False:
             respond_msg = (
                 f"{respond_msg}\n"
-                f"\u2b55\ufe0f {srv_name} (DNS name not available) \u27a1\ufe0f Disabled"
+                f"{emoji.circle_red} {srv_name} (DNS name not available) {emoji.arrow_right} Disabled"
             )
             continue  # next loop if disabled
 
@@ -31,7 +32,7 @@ def get_servers_status_4bot(server_list: dict) -> str:
         if IP_ADDR is None:
             respond_msg = (
                 f"{respond_msg}\n"
-                f"\u274c {srv_name} (DNS name not available) \u27a1\ufe0f Unreachable"
+                f"{emoji.cross_red} {srv_name} (DNS name not available) {emoji.arrow_right} Unreachable"
             )
         else:
             # проверка если порт определён в конфиге сервера
@@ -44,15 +45,29 @@ def get_servers_status_4bot(server_list: dict) -> str:
             if status == "Online":
                 respond_msg = (
                     f"{respond_msg}\n"
-                    f"\u2705 {srv_name} ({IP_ADDR}) \u27a1\ufe0f {status}"
+                    f"{emoji.checkmark_greenbg} {srv_name} ({IP_ADDR}) {emoji.arrow_right} {status}"
                 )
             else:
                 respond_msg = (
                     f"{respond_msg}\n"
-                    f"\u274c {srv_name} ({IP_ADDR}) \u27a1\ufe0f {status}"
+                    f"{emoji.cross_red} {srv_name} ({IP_ADDR}) {emoji.arrow_right} {status}"
                 )
     return respond_msg
 
+def collect_server_status_row(server_addr, exporter_port) -> list:
+    request_handler = requests.get(
+        f"{server_addr}:{exporter_port}\status\metrics",
+        allow_redirects=True,
+        timeout=30,
+        headers={
+            "PRIVATE-TOKEN": token,
+            "Accept": "application/json",
+            "encoding": "utf-8",
+        },
+    )
+    if request_handler.status_code != 200:
+        raise ConnectionError
+    return request_handler.content
 
 def ping_srv(srv: str, port: int = 22):
     respond_msg = "Dead"
