@@ -4,11 +4,7 @@
 
 docker_check_requirement(){
     ### check if the Docker installed in the system
-    if command -v docker > /dev/null 2>&1; then
-        return 0
-    else
-        return 1
-    fi
+    command -v docker > /dev/null 2>&1 && return 0 || return 1
 }
 
 docker_get_containers(){
