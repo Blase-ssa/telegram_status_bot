@@ -127,3 +127,10 @@ class TestGetDockerStatus(unittest.TestCase):
             text=True,
             timeout=5,
         )
+
+
+JSON_SRV_TEST_DATA = [("example.com", 80), ("localhost", 8001)]
+@pytest.mark.parametrize("server, port", JSON_SRV_TEST_DATA)
+def test_collect_server_status_row():
+    test_result = ic(get_servers_status_4bot(server, port))
+    

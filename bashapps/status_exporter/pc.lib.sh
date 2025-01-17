@@ -76,7 +76,7 @@ pc_get_cpu(){
 
 pc_get_storage(){
     ## get storage utilization in json format
-    df --exclude-type=tmpfs -h| awk 'NR>1 {print "{\"Filesystem\":\""$1"\",\"Size\":\""$2"\",\"Used\":\""$3"\",\"Avail\":\""$4"\",\"Use\":\""$5"\",\"Mountpoint\":\""$6"\"}"}' | jq -s .
+    df --exclude-type=tmpfs -h|sed 's|\\|\\\\|g' | awk 'NR>1 {print "{\"Filesystem\":\""$1"\",\"Size\":\""$2"\",\"Used\":\""$3"\",\"Avail\":\""$4"\",\"Use\":\""$5"\",\"Mountpoint\":\""$6"\"}"}' | jq -s .
 }
 
 pc_get_all(){

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # this is netcat web server.
-# Require: netcat 
+# Require: netcat
+
+# This command is needed for the correct operation of the web server.
+# It allows to pass variable values ​​to netcat running together with timeout.
 set -o allexport
 
 EXPORTER_DATA=''

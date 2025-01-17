@@ -33,10 +33,10 @@ if __name__ == "__main__":
     # do sturtup precheck
 
     # run monitoring service
-    monitoring_main_thread = threading.Thread(
-        target=monitoring_srv.start_monitoring_srv
-    )
-    monitoring_main_thread.start()
+    # monitoring_main_thread = threading.Thread(
+    #     target=monitoring_srv.start_monitoring_srv
+    # )
+    # monitoring_main_thread.start()
 
     # run telegram bot
     telegram_bot_main_thread = threading.Thread(target=pybot.pybot_main)

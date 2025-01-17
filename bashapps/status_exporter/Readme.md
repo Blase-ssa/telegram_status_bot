@@ -9,6 +9,8 @@ I didn't want to write this code in Python, because Python consumes a lot of res
 * `netcat` is not intended to be used as a web server all the time and may have vulnerabilities that could allow an attacker to gain access to your server. So make sure that no one other than the necessary applications has access to the port on which `netcat` is listening.
 * I also do not exclude the possibility that my code may not be stable, so if you run it, you do so at your own risk.
 
+For the above reasons, I recommend installing nginx and using this script only to receive metrics and save them to a file, and then provide the file itself to nginx or another web server.
+
 ## Installation and running
 ### General
 * create directory `/opt/status_exporter/`
@@ -18,6 +20,29 @@ I didn't want to write this code in Python, because Python consumes a lot of res
     ```
 * copy `default.env.sh` and rename copy to `.env.sh`
 * edit `.env.sh` to specify your preferences
+
+### nginx + cron (recommended)
+* Run the command `crontab -e` to start editing the list of cron jobs for the current user.
+* Add string like this to the file:
+    ```
+    */10 * * * * /opt/status_exporter/startexporter.sh -f /opt/docker/nginx/www/metrics.json
+    ```
+    where "/opt/docker/nginx/www" is the path to your web server directory.
+* Configure nginx
+    example:
+    ```
+    server {
+        listen 8001;
+        server_name localhost;
+
+        location / {
+            root /www;
+            default_type application/json;
+            try_files /metrics.json =404;
+        }
+    }
+    ```
+    where "/www" is the path to your web server directory.
 
 ### systemd
 * create user `sexport` and add him in group `docker` if you have docker installed on your server
@@ -56,6 +81,24 @@ I didn't want to write this code in Python, because Python consumes a lot of res
     ```bash
     /opt/status_exporter/stopexporter.sh
     ```
+
+### Usage
+* **Run** `./startexporter.sh` to run as a normal service (a netcat-based web server will be started and the metrics will be updated every 360 seconds) or use the following command line arguments to change the functionality:
+    * Command line arguments
+        |Arguments      |Description|
+        | --- | --- |
+        |-h \| --help   |To print this message.|
+        |-f \<filename> |To use file \<filename> to output all metrics.|
+        |service        |Use it when running as a systemd unit to reduce output.|
+
+    * Examples:
+        |Command|Description|
+        | --- | --- |
+        |./startexporter.sh     |Run the exporter service in current shell|
+        |./startexporter.sh -h  |Print help message|
+        |./startexporter.sh -f \<filename>|Export metrics to the file \<filename>|
+        |./startexporter.sh service|This comman also will run exporter service in current shell, with less output|
+* **Stop**. To stop the app use `./stopexporter.sh`. No command line arguments required.
 
 ## ToDo:
 - add more descriptions in functions

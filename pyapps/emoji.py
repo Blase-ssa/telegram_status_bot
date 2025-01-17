@@ -1,0 +1,6 @@
+arrow_right='\u27a1\ufe0f'
+arrow_downright='\u2198\uFE0F'
+cross_red='\u274C'
+circle_red='\u2b55\ufe0f'
+checkmark_greenbg='\u2705'
+pause='\u23F8\uFE0F'
