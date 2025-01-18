@@ -1,0 +1,25 @@
+---
+- id: '123456789'
+  name: "test9"
+  username: "@test9"
+  rights:
+    status: true
+    fullstatus: true
+    search: false
+    chat: false
+    help: true
+  help: "Stub for help\n"
+
+
+- id: "12345678"
+  name: "test8"
+  username: "@test8"
+  rights:
+    status: true
+    fullstatus: true
+- id: 87654321
+  name: "test81"
+  username: "@test81"
+  rights:
+    fullstatus: true
+...

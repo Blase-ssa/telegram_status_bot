@@ -98,6 +98,18 @@ def start_monitoring_service():
     ic(get_servers_status_4bot(get_yaml_data("frontend")))
     ic(get_servers_status_4bot(get_yaml_data("backend")))
 
+def get_conteiner_status_4bot(conteiner_list: dict, status_exporter_data: dict) -> str:
+    """
+    This function:
+        1) check for server name in the list of containers
+            - check if server is enabled in frontends and backends lists
+        2) take services marked for monitoring in the file and compare it with status_exporter_data
+    """
+    main_key = list(conteiner_list.keys())[0]
+    for srv in server_list[main_key]:
+        pass
+    return None
+
 
 def start_monitoring_server():
     """

@@ -12,7 +12,8 @@ services:
     container_name: ${APP_NAME}
     working_dir: /opt/${APP_NAME}
     volumes:
-      - ./${APP_PATH}:/opt/${APP_NAME}
+      - ${APP_PATH}:/opt/${APP_NAME}
+      - ${CONF_PATH}:/opt/${APP_NAME}/conf
     deploy:
       resources:
         limits:

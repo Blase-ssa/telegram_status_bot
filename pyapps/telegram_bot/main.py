@@ -7,7 +7,6 @@
 from os import *
 from common_imports import *
 import pybot
-import monitoring_srv
 import threading
 
 if __name__ == "__main__":
@@ -31,12 +30,6 @@ if __name__ == "__main__":
     globals.BOTTOKEN = get_secret("BOTTOKEN")
 
     # do sturtup precheck
-
-    # run monitoring service
-    # monitoring_main_thread = threading.Thread(
-    #     target=monitoring_srv.start_monitoring_srv
-    # )
-    # monitoring_main_thread.start()
 
     # run telegram bot
     telegram_bot_main_thread = threading.Thread(target=pybot.pybot_main)

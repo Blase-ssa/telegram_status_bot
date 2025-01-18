@@ -88,27 +88,25 @@ terraform terraform apply
 
 <pre>
  telegram_status_bot
-├──  infrastructure        - infrastructure code directory
+├──  conf
+│  ├──  access.yaml           - list of users and their privileges
+│  ├──  options.yaml          - options for apps (can be replaced with environment variables)
+│  └──  servers.yml           - list of servers and servicess to monitor
+├──  infrastructure           - infrastructure code directory
 │  ├──  AWS_Lambda
-│  │  └──  main.tf         - terraform script to run bot in AWS Lambda
+│  │  └──  main.tf            - terraform script to run bot in AWS Lambda
 │  └──  docker
-│     ├──  compose.yaml    - docker compose file to build image and run the container with app
-│     └──  Dockerfile      - dockerfile to build image for apps
-├──  bashapps              - bash scripts and apps
-│  └──  status_exporter    - Directory with server app which provide monitoring data for bot and other apps
-├──  pyapps                - dir with Python apps
+│     ├──  compose.yaml       - docker compose file to build image and run the container with app
+│     └──  Dockerfile         - dockerfile to build image for apps
+├──  bashapps                 - bash scripts and apps
+│  └──  status_exporter       - Directory with server app which provide monitoring data for bot and other apps
+├──  pyapps                   - dir with Python apps
 │  └──  telegram_bot
 │     ├──  common_imports.py  - a set of common libraries for all files
-│     ├──  conf
-│     │  ├──  access.yaml     - list of users and their privileges
-│     │  ├──  options.yaml    - options for apps (can be replaced with environment variables)
-│     │  └──  servers.yml     - list of servers and servicess to monitor
 │     ├──  core_functions.py  - core functions for all apps
-│     ├──  database.py        - database functions
 │     ├──  globals.py         - global variables for all apps
 │     ├──  main.py            - main file to run bot
 │     ├──  monitoring_func.py - monitoring functions
-│     ├──  monitoring_srv.py  - monitoring service, can be launched separately from the bot
 │     ├──  pybot.py           - telegram bot, can be launched separately, if there is no need to run monitoring services
 │     ├──  requirements.txt
 │     ├──  start.sh           - bash scrip to run bot localy

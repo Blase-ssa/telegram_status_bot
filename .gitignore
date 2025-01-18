@@ -1,8 +1,8 @@
 # real configuration
-pyapps/conf/
+conf/
 
 # dummy files for tests
-pyapps/tests/dummy*.yaml
+pyapps/telegram_bot/dummy*.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
