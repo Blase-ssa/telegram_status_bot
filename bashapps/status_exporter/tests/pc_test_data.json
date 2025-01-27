@@ -1,6 +1,6 @@
 [
   {
-    "hostname": "DESKTOP-ONMPO4N",
+    "hostname": "DESKTOP-4556y98gubju9",
     "server_time": "1737120478",
     "uptime": "up 1 hour, 20 minutes",
     "starttime": "2025-01-17 13:07:52 +0100",
@@ -110,22 +110,6 @@
         "Avail": "3.9G",
         "Use": "1%",
         "Mountpoint": "/mnt/wslg/doc"
-      },
-      {
-        "Filesystem": "C:\\",
-        "Size": "234G",
-        "Used": "113G",
-        "Avail": "121G",
-        "Use": "49%",
-        "Mountpoint": "/mnt/c"
-      },
-      {
-        "Filesystem": "D:\\",
-        "Size": "879G",
-        "Used": "619G",
-        "Avail": "261G",
-        "Use": "71%",
-        "Mountpoint": "/mnt/d"
       }
     ]
   }
