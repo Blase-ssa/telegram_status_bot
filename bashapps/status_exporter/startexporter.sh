@@ -64,6 +64,7 @@ done
 ## include library to collect metrics
 source $(dirname "$0")/pc.lib.sh        # Lib of functions to get local server metrics
 source $(dirname "$0")/docker.lib.sh    # Lib of functions to get docker metrics
+source $(dirname "$0")/rpi4_argon.lib.sh # Lib of functions to get Raspberry Pi 4 in Argone case specific metrics
 
 exporter_data(){
     ## Directly the function that generates data for sending to the web server.
@@ -73,6 +74,12 @@ exporter_data(){
         docker_data=$(echo "{\"Docker\": {\"containers\":$(docker_get_containers|jq --slurp --compact-output),\"usage\":$(docker_get_resource_usage|jq --slurp --compact-output)}}")
         data=$(echo "$data" |\
             jq --argjson docker "$docker_data" '. + $docker')
+    fi
+    if rpi4_check_requirement; then
+        # rpi4_data=$(get_rpi_metrics|jq '{HW: .CPU} | del(.CPU)')
+        rpi4_data=$(get_rpi_metrics|sed 's/\"CPU\"/\"HW\"/g' )
+        data=$(echo "$data" |\
+            jq --argjson HW "$rpi4_data" '.["CPU"] + $HW')
     fi
     data=$(echo "$data" |\
         jq --slurp --monochrome-output --indent 2)
