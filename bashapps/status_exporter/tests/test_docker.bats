@@ -1,41 +1,7 @@
 #!/usr/bin/env bats
 
 load ../docker.lib.sh
-
-## functions
-mock_docker_ps_empty(){
-  if [ "$1" == "ps" ]; then
-    for arg in "$@"; do 
-      if [ "$arg" == "json" ]; then 
-        return 0
-      fi 
-    done
-    
-    echo "CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES"
-    return 0
-  else
-    echo "Unknown command"
-    return 1
-  fi
-}
-
-mock_docker_ps_nginx(){
-  if [ "$1" == "ps" ]; then
-    for arg in "$@"; do 
-      if [ "$arg" == "json" ]; then
-        echo "$JSON_RESULT_4_MOCK_DOCKER"
-        return 0
-      fi 
-    done
-
-    echo "CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS     NAMES
-0ffd8cd8a1c0   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   80/tcp    sweet_nash"
-    return 0
-  else
-    echo "Unknown command"
-    return 1
-  fi
-}
+load ./mock_functions.lib.sh
 
 ## TESTS
 @test "docker_check_requirement: docker - unavailable" {
