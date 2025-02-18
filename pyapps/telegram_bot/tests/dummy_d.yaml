@@ -1,0 +1,9 @@
+---
+- MY_SECRET: 'yaml_secret_value'
+- key1:
+  - value1
+  - value2
+- key2:
+  - value3
+  - value4
+...

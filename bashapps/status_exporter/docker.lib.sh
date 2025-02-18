@@ -2,6 +2,8 @@
 # Set of functions for getting docker metrics in json format
 # Require: Docker 
 
+__DOCKER_LIB__=true
+
 docker_check_requirement(){
     ### check if the Docker installed in the system
     command -v docker > /dev/null 2>&1 && return 0 || return 1

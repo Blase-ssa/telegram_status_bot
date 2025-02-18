@@ -1,0 +1,116 @@
+[
+  {
+    "hostname": "DESKTOP-4556y98gubju9",
+    "server_time": "1737120478",
+    "uptime": "up 1 hour, 20 minutes",
+    "starttime": "2025-01-17 13:07:52 +0100",
+    "users_count": "1",
+    "RAM": {
+      "Mem": {
+        "Total": "8292487168",
+        "Used": "617160704",
+        "Free": "7727046656",
+        "Shared": "3141632",
+        "Cached": "169070592",
+        "Available": "7675326464"
+      },
+      "Swap": {
+        "Total": "2147483648",
+        "Used": "0",
+        "Free": "2147483648",
+        "Details": [
+          {
+            "Device": "/dev/sdb",
+            "Type": "partition",
+            "Size": "2147483648",
+            "Used": "0",
+            "Priority": "-2"
+          }
+        ]
+      }
+    },
+    "CPU": {
+      "load_average": {
+        "1m": "0.00",
+        "5m": "0.00",
+        "15m": "0.00"
+      },
+      "tasks": {
+        "total": 31,
+        "running": 1,
+        "sleeping": 30,
+        "stopped": 0,
+        "zombie": 0
+      },
+      "cpu": {
+        "us": 0.0,
+        "sy": 1.8,
+        "ni": 0.0,
+        "id": 98.2,
+        "wa": 0.0,
+        "hi": 0.0,
+        "si": 0.0,
+        "st": 0.0
+      },
+      "CPU_Count": 16
+    },
+    "Storages": [
+      {
+        "Filesystem": "none",
+        "Size": "3.9G",
+        "Used": "0",
+        "Avail": "3.9G",
+        "Use": "0%",
+        "Mountpoint": "/usr/lib/modules/5.15.167.4-microsoft-standard-WSL2"
+      },
+      {
+        "Filesystem": "drivers",
+        "Size": "234G",
+        "Used": "113G",
+        "Avail": "121G",
+        "Use": "49%",
+        "Mountpoint": "/usr/lib/wsl/drivers"
+      },
+      {
+        "Filesystem": "/dev/sdc",
+        "Size": "1007G",
+        "Used": "1.8G",
+        "Avail": "954G",
+        "Use": "1%",
+        "Mountpoint": "/"
+      },
+      {
+        "Filesystem": "none",
+        "Size": "3.9G",
+        "Used": "0",
+        "Avail": "3.9G",
+        "Use": "0%",
+        "Mountpoint": "/usr/lib/wsl/lib"
+      },
+      {
+        "Filesystem": "rootfs",
+        "Size": "3.9G",
+        "Used": "2.2M",
+        "Avail": "3.9G",
+        "Use": "1%",
+        "Mountpoint": "/init"
+      },
+      {
+        "Filesystem": "none",
+        "Size": "3.9G",
+        "Used": "76K",
+        "Avail": "3.9G",
+        "Use": "1%",
+        "Mountpoint": "/mnt/wslg/versions.txt"
+      },
+      {
+        "Filesystem": "none",
+        "Size": "3.9G",
+        "Used": "76K",
+        "Avail": "3.9G",
+        "Use": "1%",
+        "Mountpoint": "/mnt/wslg/doc"
+      }
+    ]
+  }
+]

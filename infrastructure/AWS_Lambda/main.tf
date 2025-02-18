@@ -1,14 +1,14 @@
 terraform {
   backend "s3" {
     region = "us-east-1"
-    bucket = "telegram-status-bot"
-    key    = "sergei-silantev"
+    bucket = "lambda-status-bot"
+    key    = "lambda-status-bot"
   }
 }
 
 locals {
   tag    = "sergei-silantev"
-  id     = "lambda-telegram-status-bot"
+  id     = "lambda-status-bot"
   region = "us-east-1"
 }
 
