@@ -6,6 +6,8 @@
 # It allows to pass variable values ​​to netcat running together with timeout.
 set -o allexport
 
+__WEBSRV_LIB__=true
+
 EXPORTER_DATA=''
 c_time=0
 

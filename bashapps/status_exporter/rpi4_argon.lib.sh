@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # Set of functions for getting Raspberry Pi 4 in Argone case specific metrics in json format
 
+__RPI4_ARGON_LIB__=true
+
 rpi4_check_requirement(){
   ### check system requirements
-  if !(-e /etc/argononed.conf); then
+  if [ ! -e /etc/argononed.conf ]; then
     echo "Argon configuration is not found"
     return 1
   fi
-  if !(-e /bin/vcgencmd); then
+  if [ ! -e /bin/vcgencmd ]; then
     if command -v vcgencmd > /dev/null 2>&1; then
       echo "vcgencmd - found but not in /bin/; correct location $(which vcgencmd)"
     else

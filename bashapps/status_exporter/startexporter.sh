@@ -36,6 +36,11 @@ SERVICESTATUS=1
 SERVERSTATUS=1
 FILENAME=""
 
+## Globals
+FLAG_DOCKER=false
+FLAG_WEB=false
+FLAG_RPI=false
+
 # Iterating over command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -70,16 +75,15 @@ exporter_data(){
     ## Directly the function that generates data for sending to the web server.
     data=$(pc_get_all)
     
-    if docker_check_requirement; then
+    if [ $FLAG_DOCKER == true ]; then
         docker_data=$(echo "{\"Docker\": {\"containers\":$(docker_get_containers|jq --slurp --compact-output),\"usage\":$(docker_get_resource_usage|jq --slurp --compact-output)}}")
         data=$(echo "$data" |\
             jq --argjson docker "$docker_data" '. + $docker')
     fi
-    if rpi4_check_requirement; then
-        # rpi4_data=$(get_rpi_metrics|jq '{HW: .CPU} | del(.CPU)')
-        rpi4_data=$(get_rpi_metrics|sed 's/\"CPU\"/\"HW\"/g' )
+    if [ $FLAG_RPI == true ]; then
+        rpi4_data=$(echo "{$(get_rpi_metrics|sed 's/\"CPU\"/\"HW\"/g' )}")
         data=$(echo "$data" |\
-            jq --argjson HW "$rpi4_data" '.["CPU"] + $HW')
+            jq --argjson HW "$rpi4_data" '.CPU += $HW')
     fi
     data=$(echo "$data" |\
         jq --slurp --monochrome-output --indent 2)
@@ -89,8 +93,23 @@ exporter_data(){
     echo "$data"
 }
 
+set_flags(){
+    if [ $__DOCKER_LIB__ == true ]; then
+        docker_check_requirement > /dev/null 2>&1 && FLAG_DOCKER=true || FLAG_DOCKER=false
+    fi
+    if [ $__RPI4_ARGON_LIB__ == true ]; then
+        rpi4_check_requirement > /dev/null 2>&1 && FLAG_RPI=true || FLAG_RPI=false
+    fi
+    if [ $__WEBSRV_LIB__ == true ]; then
+        web_check_requirement > /dev/null 2>&1 && FLAG_WEB=true || FLAG_WEB=false
+    fi
+}
+
 ## Collect data and exit
 if [[ ($SERVICESTATUS == 1 || $SERVERSTATUS  == 1) && ${#FILENAME} -gt 3 ]]; then
+    ## set flags
+    set_flags
+    ## export data
     exporter_data > $FILENAME
     exit 0
 else
@@ -114,6 +133,12 @@ else
         echo $$ > ${PID_FILE_DIR}/${APP_NAME}.pid || exit 1
     fi
 
+    ## set flags
+    set_flags
+    if [ $FLAG_WEB != true ]; then
+        web_check_requirement
+        exit 0 
+    fi
     ## run server
     websrv_run
 fi
